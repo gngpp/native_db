@@ -11,7 +11,7 @@ use crate::watch::query::{InternalWatch, Watch};
 use redb::TableHandle;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use std::sync::atomic::AtomicU64;
+use portable_atomic::AtomicU64;
 use std::sync::{Arc, RwLock};
 use std::u64;
 
