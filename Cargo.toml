@@ -1,5 +1,5 @@
 [package]
-name = "native_db"
+name = "native_db-32bit"
 version = "0.5.3"
 authors = ["Vincent Herlemont <vincent@herlemont.fr>"]
 edition = "2018"
