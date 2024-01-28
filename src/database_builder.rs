@@ -1,9 +1,12 @@
 use crate::db_type::Result;
 use crate::table_definition::NativeModelOptions;
 use crate::{watch, Database, DatabaseModel, Input};
+#[cfg(not(target_has_atomic = "64"))]
+use portable_atomic::AtomicU64;
 use std::collections::HashMap;
 use std::path::Path;
-use portable_atomic::AtomicU64;
+#[cfg(target_has_atomic = "64")]
+use std::sync::atomic::AtomicU64;
 use std::sync::{Arc, RwLock};
 
 /// Builder that allows you to create a [`Database`](crate::Database) instance via [`create`](Self::create) or [`open`](Self::open) etc. and [define](Self::define) models.

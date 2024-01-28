@@ -8,10 +8,13 @@ use crate::transaction::RTransaction;
 use crate::transaction::RwTransaction;
 use crate::watch;
 use crate::watch::query::{InternalWatch, Watch};
+#[cfg(not(target_has_atomic = "64"))]
+use portable_atomic::AtomicU64;
 use redb::TableHandle;
 use std::cell::RefCell;
 use std::collections::HashMap;
-use portable_atomic::AtomicU64;
+#[cfg(target_has_atomic = "64")]
+use std::sync::atomic::AtomicU64;
 use std::sync::{Arc, RwLock};
 use std::u64;
 

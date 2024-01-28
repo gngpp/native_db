@@ -3,7 +3,10 @@ use crate::db_type::{
 };
 use crate::watch;
 use crate::watch::{MpscReceiver, TableFilter};
+#[cfg(not(target_has_atomic = "64"))]
 use portable_atomic::AtomicU64;
+#[cfg(target_has_atomic = "64")]
+use std::sync::atomic::AtomicU64;
 use std::sync::{Arc, Mutex, RwLock};
 
 pub(crate) struct InternalWatch<'db> {
@@ -29,9 +32,14 @@ impl InternalWatch<'_> {
     }
 
     fn generate_watcher_id(&self) -> Result<u64> {
+        #[cfg(not(target_has_atomic = "64"))]
         let value = self
             .watchers_counter_id
             .fetch_add(1, portable_atomic::Ordering::SeqCst);
+        #[cfg(target_has_atomic = "64")]
+        let value = self
+            .watchers_counter_id
+            .fetch_add(1, std::sync::atomic::Ordering::SeqCst);
         if value == u64::MAX {
             Err(Error::MaxWatcherReached.into())
         } else {
