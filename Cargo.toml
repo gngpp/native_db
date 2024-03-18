@@ -1,6 +1,6 @@
 [package]
 name = "native_db-32bit"
-version = "0.5.3"
+version = "0.5.4"
 authors = ["Vincent Herlemont <vincent@herlemont.fr>"]
 edition = "2018"
 description = "Drop-in embedded database"
@@ -15,7 +15,7 @@ categories = ["database-implementations", "concurrency", "data-structures", "cac
 members = ["native_db_macro"]
 
 [dependencies]
-redb = { package = "redb-32bit", version = "1.5.0" }
+redb = { package = "redb-32bit", version = "1" }
 native_db_macro = { version = "0.5.3", path = "native_db_macro" }
 thiserror = "1.0"
 serde = { version = "1.0" }
